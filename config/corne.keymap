@@ -56,33 +56,114 @@
     };
 
     macros {
-        zoom_in: zoom_in {
+        browsertab: browsertab {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&none &kp RIGHT_COMMAND &kp PLUS>;
-            label = "ZOOM_IN";
-        };
-
-        zoom_out: zoom_out {
-            compatible = "zmk,behavior-macro";
-            #binding-cells = <0>;
-            bindings = <&none &kp RIGHT_COMMAND &kp MINUS>;
-            label = "ZOOM_OUT";
+            bindings
+                = <&macro_press &kp LCTRL>
+                , <&macro_tap &kp TAB>
+                , <&macro_release &kp LCTRL>
+                ;
         };
     };
+
 
     combos {
         compatible = "zmk,combos";
 
-        jv_paste {
-            bindings = <&kp RG(V)>;
-            key-positions = <19 28>;
-            layers = <0>;
+        escape {
+            bindings = <&kp ESCAPE>;
+            key-positions = <13 29>;
         };
 
-        jc_copy {
-            bindings = <&kp RG(C)>;
-            key-positions = <19 27>;
+        delete {
+            bindings = <&kp DELETE>;
+            key-positions = <15 21>;
+        };
+
+        perc {
+            bindings = <&kp PERCENT>;
+            key-positions = <5 17>;
+        };
+
+        equal {
+            bindings = <&kp EQUAL>;
+            key-positions = <28 16>;
+        };
+
+        dollar {
+            bindings = <&kp DOLLAR>;
+            key-positions = <4 16>;
+        };
+
+        pound {
+            bindings = <&kp POUND>;
+            key-positions = <3 15>;
+        };
+
+        at {
+            bindings = <&kp AT>;
+            key-positions = <2 14>;
+        };
+
+        backslash {
+            bindings = <&kp BACKSLASH>;
+            key-positions = <26 14>;
+        };
+
+        copy {
+            bindings = <&kp K_COPY>;
+            key-positions = <28 27>;
+        };
+
+        paste {
+            bindings = <&kp K_PASTE>;
+            key-positions = <26 27>;
+        };
+
+        star {
+            bindings = <&kp STAR>;
+            key-positions = <8 20>;
+        };
+
+        slash {
+            bindings = <&kp SLASH>;
+            key-positions = <32 20>;
+        };
+
+        plus {
+            bindings = <&kp PLUS>;
+            key-positions = <7 19>;
+        };
+
+        minus {
+            bindings = <&kp KP_MINUS>;
+            key-positions = <31 19>;
+        };
+
+        underscore {
+            bindings = <&kp UNDER>;
+            key-positions = <30 18>;
+        };
+
+        leftbrack {
+            bindings = <&kp LEFT_BRACKET>;
+            key-positions = <31 32>;
+        };
+
+        rightbrack {
+            bindings = <&kp RIGHT_BRACKET>;
+            key-positions = <33 32>;
+        };
+
+        para-less {
+            bindings = <&paraless>;
+            key-positions = <20 19>;
+        };
+
+        para-great {
+            bindings = <&paragreat>;
+            key-positions = <20 21>;
         };
     };
 
@@ -91,7 +172,8 @@
     keymap {
         compatible = "zmk,keymap";
 
-        main {
+        DEF {
+                display-name = "Base";
             // -----------------------------------------------------------------------------------------
             // |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  |
             // |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |
@@ -99,14 +181,15 @@
             // | GUI | CTRL | SHFT | LWR | SPC |   | ENT | RSE  | BKSP | ALT | ESC |
 
             bindings = <
-&mo 4  &kp Q  &kp W        &kp E           &kp R               &kp T    &kp Y  &kp U               &kp I            &kp O        &kp P       &kp BACKSPACE
-&mo 2  &kp A  &hm LCTRL S  &hm LEFT_ALT D  &hm LEFT_COMMAND F  &kp G    &kp H  &hm LEFT_COMMAND J  &hm RIGHT_ALT K  &hm RCTRL L  &lt 2 SEMI  &kp SQT
-&none  &kp Z  &kp X        &kp C           &kp V               &kp B    &kp N  &kp M               &kp COMMA        &kp DOT      &kp FSLH    &sk RIGHT_SHIFT
-                           &none           &sk LEFT_SHIFT      &mo 5    &mo 3  &lt 1 SPACE         &none
+&kp TAB    &kp Q  &kp W  &kp E     &kp R  &kp T        &kp Y    &kp U      &kp I          &kp O    &kp P     &kp BACKSPACE
+&kp LSHFT  &kp A  &kp S  &kp D     &kp F  &kp G        &kp H    &kp J      &kp K          &kp L    &kp SEMI  &kp SQT
+&kp LCTRL  &kp Z  &kp X  &kp C     &kp V  &kp B        &kp N    &kp M      &kp COMMA      &kp DOT  &kp FSLH  &kp RSHFT
+                         &kp LGUI  &mo 1  &kp SPACE    &kp RET  &lt 2 TAB  &kp RIGHT_ALT
             >;
         };
 
-        nav {
+        NAV {
+            display-name = "Nav";
             // -----------------------------------------------------------------------------------------
             // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
             // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
@@ -114,14 +197,15 @@
             // | GUI | CTRL | SHFT | LWR | SPC |   | ENT | RSE  | BKSP | ALT | ESC |
 
             bindings = <
-&trans  &kp ESC  &trans  &kp LC(E)  &kp LC(R)         &kp LS(LG(KP_NUMBER_5))    &trans  &trans          &kp UP_ARROW    &zoom_out        &zoom_in   &trans
-&trans  &kp TAB  &trans  &trans     &kp LEFT_COMMAND  &trans                     &trans  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp ENTER  &kp RET
-&trans  &trans   &trans  &trans     &trans            &trans                     &trans  &trans          &trans          &trans           &trans     &trans
-                         &trans     &trans            &trans                     &trans  &trans          &trans
+&trans  &kp N1  &kp N7    &kp N8        &kp N9           &kp N5           &kp N6   &kp N7  &kp N8  &kp N9  &kp N0  &trans
+&trans  &trans  &trans    &kp UP_ARROW  &browsertab           &kp PAGE_UP      &kp N0   &kp N4  &kp N5  &kp N6  &trans  &trans
+&trans  &trans  &kp LEFT  &kp DOWN      &kp RIGHT_ARROW  &kp PAGE_DOWN    &trans   &kp N1  &kp N2  &kp N3  &trans  &trans
+                          &kp LGUI      &trans           &kp SPACE        &kp RET  &trans  &trans
             >;
         };
 
-        media {
+        SYM {
+                display-name = "Sym";
             // -----------------------------------------------------------------------------------------
             // |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
             // | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
@@ -129,37 +213,20 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&trans  &trans  &kp N7        &kp N8        &kp N9        &kp MINUS    &trans  &kp K_MUTE  &kp C_VOLUME_UP    &kp O   &kp P   &kp BACKSPACE
-&trans  &trans  &kp NUMBER_4  &kp N5        &kp NUMBER_6  &kp N0       &trans  &kp J       &kp C_VOLUME_DOWN  &kp L   &none   &kp APOSTROPHE
-&trans  &trans  &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp PLUS     &trans  &trans      &trans             &trans  &trans  &trans
-                              &trans        &trans        &trans       &trans  &trans      &trans
+&trans  &kp EXCL  &kp AT          &kp HASH        &kp DLLR         &kp PRCNT    &kp CARET  &kp AMPS   &kp ASTRK  &kp LEFT_PARENTHESIS  &kp RPAR  &trans
+&trans  &trans    &trans          &kp UP_ARROW    &trans           &kp GRAVE    &kp MINUS  &kp EQUAL  &kp LBKT   &kp RBKT              &kp BSLH  &trans
+&trans  &trans    &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp TILDE    &kp UNDER  &kp PLUS   &kp LBRC   &kp RBRC              &kp PIPE  &trans
+                                  &kp LGUI        &trans           &kp SPACE    &kp RET    &trans     &trans
             >;
         };
 
-        symbols {
+        ADJ {
+                display-name = "System";
             bindings = <
-&trans  &kp Q      &kp ASTERISK  &kp EXCL        &kp AMPERSAND         &kp PERCENT    &kp DOLLAR     &kp UNDER              &kp KP_MINUS     &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp BACKSPACE
-&trans  &kp COLON  &kp TILDE     &kp LEFT_BRACE  &kp LEFT_PARENTHESIS  &kp PLUS       &kp EQUAL      &kp RIGHT_PARENTHESIS  &kp RIGHT_BRACE  &kp GRAVE         &kp SEMICOLON      &kp ENTER
-&trans  &kp TILDE  &kp POUND     &kp AT          &kp LEFT_BRACKET      &kp PIPE       &kp BACKSLASH  &kp POUND              &kp CARET        &kp PERIOD        &kp SLASH          &trans
-                                 &trans          &trans                &trans         &trans         &trans                 &trans
-            >;
-        };
-
-        reset {
-            bindings = <
-&trans  &trans  &trans  &bt BT_CLR      &trans  &bt BT_NXT    &trans  &trans  &bt BT_SEL 0  &bt BT_SEL 3  &trans  &trans
-&trans  &trans  &trans  &bt BT_CLR_ALL  &trans  &bt BT_PRV    &trans  &trans  &bt BT_SEL 1  &bt BT_SEL 4  &trans  &trans
-&trans  &trans  &trans  &trans          &trans  &trans        &trans  &trans  &bt BT_SEL 2  &trans        &trans  &bootloader
-                        &trans          &trans  &trans        &trans  &trans  &trans
-            >;
-        };
-
-        numrow {
-            bindings = <
-&trans  &kp EXCL  &kp AT  &kp POUND  &kp DOLLAR  &kp PERCENT    &kp CARET      &kp AMPS   &kp ASTRK  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp BACKSPACE
-&trans  &kp N1    &kp N2  &kp N3     &kp N4      &kp N5         &kp N6         &kp N7     &kp N8     &kp N9                &kp N0                 &kp SINGLE_QUOTE
-&trans  &kp Z     &kp X   &kp C      &kp V       &kp B          &kp N          &kp M      &kp COMMA  &kp PERIOD            &kp SLASH              &sk RIGHT_SHIFT
-                          &trans     &trans      &trans         &kp BACKSPACE  &kp ENTER  &trans
+&trans  &kp F1        &kp F2        &kp F3        &kp F4      &kp F5            &kp F6  &kp F7  &kp F8  &kp F9  &kp F10      &trans
+&trans  &kp F11       &kp F12       &trans        &trans      &trans            &trans  &trans  &trans  &trans  &trans       &trans
+&trans  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_CLR  &bt BT_CLR_ALL    &trans  &trans  &trans  &trans  &bootloader  &trans
+                                    &trans        &trans      &trans            &trans  &trans  &trans
             >;
         };
     };
